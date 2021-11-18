@@ -1,0 +1,36 @@
+“N” on aina satunnainen kokonaisluku, jonka arvo on 0-10.
+Arrayssa “X” on 10kpl “N”, eli satunnaista kokonaislukua.
+Toista niin kauan, että X:n arvojen summa on 100.
+Jos “X” yhteenlaskettu summa on pienempi kuin 100, lisää “X”:ään uusi “N”.
+Jos “X” summa on suurempi kuin 100, poista “X”:ästä sen kolme viimeisintä”
+
+
+funktio sum(X){
+    summa = 0
+    loopSum(index = 0; index < X.pituus; index +1){
+        summa += X[index]
+    }
+    return summa
+}
+
+X = []
+loopGenerateX(index = 0; index < 10; index +1){
+    N = random(0, 10)
+    X.add(N)
+}
+
+loopVert(sum(X) != 100){
+
+    if(summa < 100){
+        N = random(0, 10)
+        X.add(N)
+    }
+
+    if(summa > 100){
+        loopDel(index = 0; index < 3; index + 1){
+            X.deleteFromEnd()
+        }
+    }
+}
+
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  @keyframes rotation {
+   100% {transform: rotate(360deg)}
+  }
+  body{
+    display: flex;
+    background-color: #91e3d8;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .circle{
+    background-color: white;
+    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .img{
+    animation: rotation 3s linear infinite;
+  }
+</style>
+<body>
+<div class="circle">
+  <img id="doge" src="Doge-Head-PNG.png" width="250px" />
+</div>
+<script>
+  let image = document.getElementById('doge')
+  function rotation (e){
+    e.target.classList.toggle('img')
+  }
+  image.addEventListener('click', rotation)
+</script>
+</body>
+</html>

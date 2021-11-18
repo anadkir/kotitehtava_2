@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laskin</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <style>
+        body{
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .laskin{
+            background-color: rgb(73, 71, 71);
+            width: 50%;
+        }
+        .output{
+            width: 356px;
+            margin: 5px;
+            border-radius: 10px;
+            border: black solid 1px;
+            background-color: grey;
+            text-align: right;
+            font-size: 40px;
+            height: 60px;
+        }
+        .row{
+            display: flex;
+
+        }
+        .key{
+            width: 80px;
+            height: 80px;
+            background-color: rgba(26, 26, 26, 0.4);
+            border: black solid 1px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin: 5px;
+        }
+        .key:hover .key:focus{
+
+        }
+        .hide{
+            display: none;
+        }
+        .equal{
+            width: 172px;
+        }
+    </style>
+</head>
+<body>
+    <div class="laskin">
+        <div class="output">
+
+        </div>
+        <div class="keyboard">
+            <div class="row">
+                <div data-function="AC" class="key">AC</div>
+                <div data-function="delete" class="key">DEL</div>
+                <div data-function="%" class="key">%</div>
+                <div data-function="/" class="key">/</div>
+            </div>
+            <div class="row">
+                <div data-function="num" data-num="7" class="key">7</div>
+                <div data-function="num" data-num="8" class="key">8</div>
+                <div data-function="num" data-num="9" class="key">9</div>
+                <div data-function="*" class="key">*</div>
+            </div>
+            <div class="row">
+                <div data-function="num" data-num="4" class="key">4</div>
+                <div data-function="num" data-num="5" class="key">5</div>
+                <div data-function="num" data-num="6" class="key">6</div>
+                <div data-function="-" class="key">-</div>
+            </div>
+            <div class="row">
+                <div data-function="num" data-num="1" class="key">1</div>
+                <div data-function="num" data-num="2" class="key">2</div>
+                <div data-function="num" data-num="3" class="key">3</div>
+                <div data-function="+" class="key">+</div>
+            </div>
+            <div class="row">
+                <div class="key hide"></div>
+                <div data-function="." class="key">.</div>
+                <div data-function="num" data-num="0" class="key">0</div>
+                <div data-function="=" class="key equal">=</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // todo нули
+        // todo ховер и нажатие
+        // todo история
+        let output = 'Laskin'
+        $('.output').html(output)
+
+        let isAction, isPercent, isDot, isMinus = false
+
+
+        $('.key').on('click', (e) => {
+            let key = $(e.target)
+            let fun = key.data('function')
+
+            if (output === 'Laskin'){
+                output = ''
+            }
+
+            let minus = function () {
+                if (isMinus){
+                    output = output.slice(0, -1)
+                }
+                isMinus = false
+            }
+
+            switch (fun){
+                case 'num':{
+                    let num = key.data('num')
+                    output += num
+                    isAction = false
+                    isMinus = false
+                    isPercent = false
+                    isDot = false
+                    break
+                }
+                case 'AC':{
+                    output = "Laskin"
+                    break
+                }
+                case 'delete':{
+                    output = output.slice(0, -1)
+                    break
+                }
+                case '%':{
+                    if (isPercent){
+                        output = output.slice(0, -1)
+                    }
+                    output += '%'
+                    isPercent = true
+                    break
+                }
+                case '/':{
+                    if (isAction){
+                        output = output.slice(0, -1)
+                    }
+                    minus()
+                    output += '/'
+                    isAction = true
+                    break
+                }
+                case '*':{
+                    if (isAction){
+                        output = output.slice(0, -1)
+                    }
+                    minus()
+                    output += '*'
+                    isAction = true
+                    break
+                }
+                case '-':{
+                    if (isMinus){
+                        output = output.slice(0, -1)
+                    }
+                    output += '-'
+                    isMinus = true
+                    break
+                }
+                case '+':{
+                    if (isAction){
+                        output = output.slice(0, -1)
+                    }
+                    minus()
+                    output += '+'
+                    isAction = true
+                    break
+                }
+                case '.':{
+                    if (isDot){
+                        output = output.slice(0, -1)
+                    }
+                    output += '.'
+                    isDot = true
+                    break
+                }
+                case '=':{
+                    output = eval(output)
+                    break
+                }
+            }
+            $('.output').html(output)
+        })
+
+    </script>
+</body>
+</html>
